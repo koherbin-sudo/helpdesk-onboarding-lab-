@@ -1,0 +1,32 @@
+# new-user.ps1
+# Simple user creation simulation for Help Desk Onboarding Lab
+
+Write-Host "=== New User Creation Tool ===" -ForegroundColor Cyan
+
+# Collect user info
+$FirstName = Read-Host "Enter first name"
+$LastName = Read-Host "Enter last name"
+$Department = Read-Host "Enter department"
+
+# Generate username
+$Username = ($FirstName.Substring(0,1) + $LastName).ToLower()
+
+# Create user object (simulated)
+$UserObject = [PSCustomObject]@{
+    FirstName  = $FirstName
+    LastName   = $LastName
+    Username   = $Username
+    Department = $Department
+    CreatedOn  = (Get-Date)
+}
+
+# Display result
+Write-Host "`nUser created successfully:" -ForegroundColor Green
+$UserObject | Format-List
+
+# Log action
+$LogPath = ".\user_creation_log.txt"
+$LogEntry = "[$(Get-Date)] Created user: $Username ($FirstName $LastName) - Dept: $Department"
+Add-Content -Path $LogPath -Value $LogEntry
+
+Write-Host "`nAction logged to $LogPath" -ForegroundColor Yellow

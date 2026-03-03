@@ -7,3 +7,4 @@ if (Test-Path $edgeCache) {
 } else {
     Write-Host "Edge cache folder not found."
 }
+5
